@@ -1,8 +1,5 @@
 <?PHP
-$hostname_localhost="localhost";
-$database_localhost="reporte";
-$username_localhost="manuel";
-$password_localhost="sector379.aA";
+include '../conexion.php';
 
 $json=array();
 

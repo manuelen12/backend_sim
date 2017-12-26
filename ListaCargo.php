@@ -1,8 +1,5 @@
 <?php
-		$DB_USER='manuel'; 
-		$DB_PASS='sector379.aA'; 
-		$DB_HOST='localhost';
-		$DB_NAME='reporte';
+		include 'conexion.php';
 		$mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 		/* check connection */
 		if (mysqli_connect_errno()) {

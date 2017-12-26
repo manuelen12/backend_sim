@@ -1,8 +1,9 @@
 <?PHP
-$hostname_localhost ="192.168.2.44";
-$database_localhost ="reporte";
-$username_localhost ="root";
-$password_localhost ="12345678";
+//$hostname_localhost ="192.168.2.44";
+//$database_localhost ="reporte";
+//$username_localhost ="root";
+//$password_localhost ="12345678";
+include '../conexion.php';
 
 $json=array();
 				
