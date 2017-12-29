@@ -34,12 +34,12 @@
     }
 
 	$myArray = array();
+
 	if($result = $mysqli->query("select * from login where name = '$name' and contrasena = '$contrasena'")){
 	    while ($row = $result->fetch_array(MYSQLI_ASSOC)){
 	        $myArray[] = $row;
 	    }
 	if (!$myArray){
-
 		http_response_code(404);
         echo "Usuario y Password Incorrectos";
         return;
