@@ -1,8 +1,5 @@
-<?PHP
-//$hostname_localhost ="192.168.2.44";
-//$database_localhost ="reporte";
-//$username_localhost ="root";
-//$password_localhost ="12345678";
+<?php
+
 include '../conexion.php';
 
 $json=array();
@@ -18,5 +15,7 @@ $json=array();
 		}
 		mysqli_close($conexion);
 		echo json_encode($json);
+
+
 ?>
 
