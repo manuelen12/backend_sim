@@ -39,7 +39,7 @@
 	    while ($row = $result->fetch_array(MYSQLI_ASSOC)){
 	        $myArray[] = $row;
 	    }
-	if (!$myArray){
+	if (empty($myArray)){
 		http_response_code(404);
         echo "Usuario y Password Incorrectos";
         return;
