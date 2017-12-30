@@ -34,6 +34,33 @@ class TokenLogin {
          return FALSE;
       }
    }
+   function valid_session($mysqli, $rol, $token){
+      $payload = $this->validate_token($token);
+
+      if ($payload) {
+            if($result = $mysqli->query("select * from login where idLogin = '{$payload->uid}'")){
+             while ($row = $result->fetch_array(MYSQLI_ASSOC)){
+                 $myArray[] = $row;
+             }
+            if (empty($myArray)){
+               http_response_code(405);
+                 echo "id no existe";
+                 return;
+            }else{
+               if ($myArray[0]['rol']!=$rol){
+                  http_response_code(405);
+                    echo "Usuario no tiene permisos";
+                    return;
+               }
+            }
+         }
+      }else{
+         http_response_code(405);
+         echo "Login Expirado";
+         return;
+      }
+      return $payload->uid;
+   }
 }
 
 ?>

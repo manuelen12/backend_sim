@@ -1,7 +1,15 @@
 <?php
+	require_once("../login/jwt/TokenLogin.php");
 	include '../conexion.php';
-	if (isset($_GET['name'])){
-		$name = $_GET['name'];
+
+	$otl = new TokenLogin($secret);
+	$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
+	if(!$id){
+		return;
+	}
+
+	if (isset($_POST['name'])){
+		$name = $_POST['name'];
 		if (!$name){
 			http_response_code(404);
 			echo "name es Requerido";
@@ -13,8 +21,8 @@
 		echo "name es Requerido";
 		return;
 	}
-	if (isset($_GET['contrasena'])){
-		$contrasena = $_GET['contrasena'];
+	if (isset($_POST['contrasena'])){
+		$contrasena = $_POST['contrasena'];
 		if (!$contrasena){
 			http_response_code(404);
 			echo "contrasena es Requerido";
@@ -26,8 +34,8 @@
 		echo "contrasena es Requerido";
 		return;
 	}
-	if (isset($_GET['rol'])){
-		$rol = $_GET['rol'];
+	if (isset($_POST['rol'])){
+		$rol = $_POST['rol'];
 		if (!$rol){
 			http_response_code(404);
 			echo "rol es Requerido";

@@ -35,7 +35,7 @@
 
 	$myArray = array();
 
-	if($result = $mysqli->query("select * from login where name = '$name' and contrasena = '$contrasena'")){
+	if($result = $mysqli->query("select * from login where name like '$name' and contrasena = md5('$contrasena')")){
 	    while ($row = $result->fetch_array(MYSQLI_ASSOC)){
 	        $myArray[] = $row;
 	    }
