@@ -1,46 +1,58 @@
-<?PHP
-include '../conexion.php';
+<?php
+	include '../conexion.php';
+	if (isset($_GET['name'])){
+		$name = $_GET['name'];
+		if (!$name){
+			http_response_code(404);
+			echo "name es Requerido";
+			return;
 
-$json=array();
-
-	if(isset($_GET["name"]) && isset($_GET["contrasena"] ) &&  isset($_GET["rol"] )){
-		
-		$name=$_GET['name'];
-		$contrasena=$_GET['contrasena'];
-		$rol=$_GET['rol'];
-		
-		
-		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
-		
-		$insert="INSERT INTO login(contrasena, name, rol) VALUES ('{$contrasena}','{$name}','{$rol}')";
-		$resultado_insert=mysqli_query($conexion,$insert);
-		
-		if($resultado_insert){
-			$consulta="SELECT * FROM login WHERE name = '{$name}'";
-			$resultado=mysqli_query($conexion,$consulta);
-			
-			if($registro=mysqli_fetch_array($resultado)){
-				$json['login'][]=$registro;
-			}
-			mysqli_close($conexion);
-			echo json_encode($json);
 		}
-		else{
-			$resulta["name"]=0;
-			$resulta["contrasena"]='No Registra';
-			$resulta["rol"]='No Registra';
-			$json['login'][]=$resulta;
-			echo json_encode($json);
-		}
-		
+	}else{
+		http_response_code(404);
+		echo "name es Requerido";
+		return;
 	}
-	else{
-			$resulta["name"]=0;
-			$resulta["rol"]='WS No retorna';
-			$resulta["contrasena"]='WS No retorna';
-			$json['login'][]=$resulta;
-			echo json_encode($json);
+	if (isset($_GET['contrasena'])){
+		$contrasena = $_GET['contrasena'];
+		if (!$contrasena){
+			http_response_code(404);
+			echo "contrasena es Requerido";
+			return;
+
 		}
+	}else{
+		http_response_code(404);
+		echo "contrasena es Requerido";
+		return;
+	}
+	if (isset($_GET['rol'])){
+		$rol = $_GET['rol'];
+		if (!$rol){
+			http_response_code(404);
+			echo "rol es Requerido";
+			return;
+
+		}
+	}else{
+		http_response_code(404);
+		echo "rol es Requerido";
+		return;
+	}
+
+	
+	$insert="INSERT INTO login(contrasena, name, rol) VALUES (md5('$contrasena'),'$name','$rol')";
+	$resultado_insert=mysqli_query($mysqli,$insert);
+	
+	if($resultado_insert){
+		echo json_encode("{'result': 'excelente'}");
+		return;
+	}else{
+		http_response_code(404);
+		echo "Usuario Invalido";
+		return;
+	}
+	
 
 ?>
 
