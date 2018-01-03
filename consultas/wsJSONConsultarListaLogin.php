@@ -4,16 +4,15 @@ include '../conexion.php';
 
 $json=array();
 				
-		$conexion = mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
 
 		$consulta="select name,contrasena from login";
-		$resultado=mysqli_query($conexion,$consulta);
+		$resultado=mysqli_query($msqli,$consulta);
 		
 		while($registro=mysqli_fetch_array($resultado)){
 			$json['login'][]=$registro;
 			//echo $registro['id'].' - '.$registro['nombre'].'<br/>';
 		}
-		mysqli_close($conexion);
+		mysqli_close($msqli);
 		echo json_encode($json);
 
 

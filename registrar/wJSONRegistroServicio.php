@@ -1,44 +1,44 @@
-<?PHP
-include '../conexion.php';
+<?php
+	include '../conexion.php';
+	require_once("../login/jwt/TokenLogin.php");
 
-$json=array();
-
-	if(isset($_GET["NomServicio"])){
-		
-		$NomServicio=$_GET['NomServicio'];
-		
-		
-		
-		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
-		
-		$insert="INSERT INTO servicio(NomServicio) VALUES ('{$NomServicio}')";
-		$resultado_insert=mysqli_query($conexion,$insert);
-		
-		if($resultado_insert){
-			$consulta="SELECT * FROM servicio WHERE NomServicio = '{$NomServicio}'";
-			$resultado=mysqli_query($conexion,$consulta);
-			
-			if($registro=mysqli_fetch_array($resultado)){
-				$json['servicio'][]=$registro;
-			}
-			mysqli_close($conexion);
-			echo json_encode($json);
-		}
-		else{
-			$resulta["NomServicio"]='No Registra';
-			$json['servicio'][]=$resulta;
-			echo json_encode($json);
-		}
-		
+	$otl = new TokenLogin($secret);
+	$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
+	if(!$id){
+		return;
 	}
-	else{
-			$resulta["NomServicio"]='No Registra';
-			$json['servicio'][]=$resulta;
-			echo json_encode($json);
+
+	if (isset($_POST['NomServicio'])){
+		$NomServicio = $_POST['NomServicio'];
+	if (!$NomServicio){
+		http_response_code(404);
+		echo "NomServicio es Requerido";
+		return;
+
+	}
+	}else{
+		http_response_code(404);
+		echo "NomServicio es Requerido";
+		return;
+	}
+
+
+	$insert="INSERT INTO servicio(NomServicio) VALUES ('{$NomServicio}')";
+	$resultado_insert=mysqli_query($mysqli,$insert);
+	
+	if($resultado_insert){
+		$consulta="SELECT * FROM servicio WHERE NomServicio = '{$NomServicio}'";
+		$resultado=mysqli_query($mysqli,$consulta);
 		
-		}
-
-
+		$registro=mysqli_fetch_array($resultado);
+		mysqli_close($mysqli);
+		echo json_encode($registro);
+	}else{
+		http_response_code(404);
+		echo "Servico ya Existe";
+		return;
+	}
+		
 
 ?>
 

@@ -1,43 +1,46 @@
 <?PHP
-include '../conexion.php';
+	include '../conexion.php';
+	require_once("../login/jwt/TokenLogin.php");
 
-$json=array();
+	$otl = new TokenLogin($secret);
+	$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
+	if(!$id){
+		return;
+	}
 
-	if(isset($_GET["Descripcion"])){
+	if (isset($_POST['Descripcion'])){
+		$Descripcion = $_POST['Descripcion'];
+	if (!$Descripcion){
+		http_response_code(404);
+		echo "Descripcion es Requerido";
+		return;
+
+	}
+	}else{
+		http_response_code(404);
+		echo "Descripcion es Requerido";
+		return;
+	}
+
+
+	$insert="INSERT INTO procasis (Descripcion) VALUES ('{$Descripcion}')";
+	$resultado_insert=mysqli_query($mysqli,$insert);
+	
+	if($resultado_insert){
+		$consulta="SELECT * FROM procasis WHERE Descripcion = '{$Descripcion}'";
+		$resultado=mysqli_query($mysqli,$consulta);
 		
-		$Descripcion=$_GET['Descripcion'];
-		
-		
-		
-		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
-		
-		$insert="INSERT INTO procasis (Descripcion) VALUES ('{$Descripcion}')";
-		$resultado_insert=mysqli_query($conexion,$insert);
-		
-		if($resultado_insert){
-			$consulta="SELECT * FROM procasis WHERE Descripcion = '{$Descripcion}'";
-			$resultado=mysqli_query($conexion,$consulta);
-			
-			if($registro=mysqli_fetch_array($resultado)){
-				$json['procasis'][]=$registro;
-			}
-			mysqli_close($conexion);
-			echo json_encode($json);
+		if($registro=mysqli_fetch_array($resultado)){
+			echo json_encode($registro);
 		}
-		else{
-			$resulta["Descripcion"]='No Registra';
-			$json['procasis'][]=$resulta;
-			echo json_encode($json);
-		}
-		
+		mysqli_close($mysqli);
 	}
 	else{
-			$resulta["Descripcion"]='No Registra';
-			$json['procasis'][]=$resulta;
-			echo json_encode($json);
-		
-		}
-
+		http_response_code(404);
+		echo "Proceso Asistencial ya Existe";
+		return;
+	}
+	
 
 
 ?>

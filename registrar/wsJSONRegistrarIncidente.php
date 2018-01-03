@@ -11,19 +11,17 @@ $json=array();
 		
 		
 		
-		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
-		
 		$insert="INSERT INTO detallereport(NomPac,Documento,DescSuceso) VALUES ('{$NomPac}','{$Documento}','{$DescSuceso}')";
-		$resultado_insert=mysqli_query($conexion,$insert);
+		$resultado_insert=mysqli_query($msqli,$insert);
 		
 		if($resultado_insert){
 			$consulta="SELECT * FROM detallereport WHERE NomPac = '{$NomPac}'";
-			$resultado=mysqli_query($conexion,$consulta);
+			$resultado=mysqli_query($msqli,$consulta);
 			
 			if($registro=mysqli_fetch_array($resultado)){
 				$json['detallereport'][]=$registro;
 			}
-			mysqli_close($conexion);
+			mysqli_close($msqli);
 			echo json_encode($json);
 		}
 		else{
