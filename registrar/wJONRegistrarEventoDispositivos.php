@@ -16,6 +16,86 @@ $json=array();
 		
 		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
 		
+
+			if (isset($_POST['Documento'])){
+			$Documento = $_POST['Documento'];
+			if (!$Documento){
+				http_response_code(404);
+				echo "Documento es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Documento es Requerido";
+			return;
+		}
+			if (isset($_POST['NomPac'])){
+			$NomPac = $_POST['NomPac'];
+			if (!$NomPac){
+				http_response_code(404);
+				echo "NomPac es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "NomPac es Requerido";
+			return;
+		}
+			if (isset($_POST['Dispositivo'])){
+			$Dispositivo = $_POST['Dispositivo'];
+			if (!$Dispositivo){
+				http_response_code(404);
+				echo "Dispositivo es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Dispositivo es Requerido";
+			return;
+		}
+			if (isset($_POST['Lote'])){
+			$Lote = $_POST['Lote'];
+			if (!$Lote){
+				http_response_code(404);
+				echo "Lote es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Lote es Requerido";
+			return;
+		}
+			if (isset($_POST['Fabricante'])){
+			$Fabricante = $_POST['Fabricante'];
+			if (!$Fabricante){
+				http_response_code(404);
+				echo "Fabricante es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Fabricante es Requerido";
+			return;
+		}
+			if (isset($_POST['DescSuceso'])){
+			$DescSuceso = $_POST['DescSuceso'];
+			if (!$DescSuceso){
+				http_response_code(404);
+				echo "DescSuceso es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "DescSuceso es Requerido";
+			return;
+		}
+
 		$insert="INSERT INTO detallereport(Documento, NomPac,Dispositivo,Lote,Fabricante,DescSuceso) VALUES ('{$Documento}','{$NomPac}','{$Dispositivo}','{$Lote}','{$Fabricante}','{$DescSuceso}')";
 		$resultado_insert=mysqli_query($conexion,$insert);
 		

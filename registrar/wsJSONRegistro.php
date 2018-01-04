@@ -8,6 +8,19 @@
 		return;
 	}
 
+		if (isset($_POST['contrasena'])){
+		$contrasena = $_POST['contrasena'];
+		if (!$contrasena){
+			http_response_code(404);
+			echo "contrasena es Requerido";
+			return;
+
+		}
+	}else{
+		http_response_code(404);
+		echo "contrasena es Requerido";
+		return;
+	}
 	if (isset($_POST['name'])){
 		$name = $_POST['name'];
 		if (!$name){
@@ -19,19 +32,6 @@
 	}else{
 		http_response_code(404);
 		echo "name es Requerido";
-		return;
-	}
-	if (isset($_POST['contrasena'])){
-		$contrasena = $_POST['contrasena'];
-		if (!$contrasena){
-			http_response_code(404);
-			echo "contrasena es Requerido";
-			return;
-
-		}
-	}else{
-		http_response_code(404);
-		echo "contrasena es Requerido";
 		return;
 	}
 	if (isset($_POST['rol'])){
@@ -51,7 +51,6 @@
 	
 	$insert="INSERT INTO login(contrasena, name, rol) VALUES (md5('$contrasena'),'$name','$rol')";
 	$resultado_insert=mysqli_query($mysqli,$insert);
-	
 	if($resultado_insert){
 		echo json_encode("{'result': 'excelente'}");
 		return;
