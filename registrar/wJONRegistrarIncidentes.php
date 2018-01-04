@@ -13,6 +13,58 @@ $json=array();
 		
 		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
 
+			if (isset($_POST['id'])){
+			$id = $_POST['id'];
+			if (!$id){
+				http_response_code(404);
+				echo "id es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "id es Requerido";
+			return;
+		}
+			if (isset($_POST['servicio'])){
+			$servicio = $_POST['servicio'];
+			if (!$servicio){
+				http_response_code(404);
+				echo "servicio es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "servicio es Requerido";
+			return;
+		}
+			if (isset($_POST['TipoReporte'])){
+			$TipoReporte = $_POST['TipoReporte'];
+			if (!$TipoReporte){
+				http_response_code(404);
+				echo "TipoReporte es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "TipoReporte es Requerido";
+			return;
+		}
+			if (isset($_POST['evento'])){
+			$evento = $_POST['evento'];
+			if (!$evento){
+				http_response_code(404);
+				echo "evento es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "evento es Requerido";
+			return;
+		}
 
 		//INSERT INTO `detallereport` (`IdDetalleReport`, `id`, `IdServicio`, `IdTipoReporte`, `IdDetTipoRep`, `IdProcAsis`, `NomPac`, `Documento`, `Medicamento`, `Lote`, `Fabricante`, `DescSuceso`, `Dispositivo`, `FechaSuc`) VALUES (NULL, '1', '2', '2', '1', NULL, '', '', '', '', '', '', '', '2017-11-02');
 		$insert="INSERT INTO detallereport(id,IdServicio,IdTipoReporte,IdDetTipoRep,FechaSuc) VALUES ('{$id}','{$servicio}','{$TipoReporte}','{$evento}')";
