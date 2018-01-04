@@ -9,7 +9,45 @@ $json=array();
 		$Documento=$_GET['Documento'];
 		$DescSuceso=$_GET['DescSuceso'];
 		
-		
+			if (isset($_POST['NomPac'])){
+			$NomPac = $_POST['NomPac'];
+			if (!$NomPac){
+				http_response_code(404);
+				echo "NomPac es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "NomPac es Requerido";
+			return;
+		}
+			if (isset($_POST['Documento'])){
+			$Documento = $_POST['Documento'];
+			if (!$Documento){
+				http_response_code(404);
+				echo "Documento es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Documento es Requerido";
+			return;
+		}
+			if (isset($_POST['DescSuceso'])){
+			$DescSuceso = $_POST['DescSuceso'];
+			if (!$DescSuceso){
+				http_response_code(404);
+				echo "DescSuceso es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "DescSuceso es Requerido";
+			return;
+		}		
 		
 		$insert="INSERT INTO detallereport(NomPac,Documento,DescSuceso) VALUES ('{$NomPac}','{$Documento}','{$DescSuceso}')";
 		$resultado_insert=mysqli_query($msqli,$insert);
