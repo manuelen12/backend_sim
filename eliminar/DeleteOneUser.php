@@ -12,14 +12,13 @@ $json=array();
 		$idLogin=$_GET['idLogin'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="SELECT name, rol FROM login WHERE idLogin='{$idLogin}'";
-		//$sql="SELECT * FROM login WHERE idLogin='2'";
+		$sql="DELETE FROM login WHERE idLogin='{$idLogin}'";
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 
 		}	
+		echo json_encode("{'result': 'excelente'}");
 
 	}
-		print(json_encode($output)); 
 		$mysqli->close();	
 		?>		
