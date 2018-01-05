@@ -9,22 +9,22 @@
 	}
 
 
-	if (isset($_POST['clasificacion'])){
-		$clasificacion = $_POST['clasificacion'];
-		if (!$clasificacion){
+	if (isset($_POST['name'])){
+		$name = $_POST['name'];
+		if (!$name){
 			http_response_code(404);
-			echo "clasificacion es Requerido";
+			echo "name es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "clasificacion es Requerido";
+		echo "name es Requerido";
 		return;
 	}
 
 	
-	$insert="INSERT INTO detallereport(clasificacion) VALUES ('$clasificacion')";
+	$insert="INSERT INTO clasificaciones(name) VALUES ('$name')";
 	$resultado_insert=mysqli_query($mysqli,$insert);
 	if($resultado_insert){
 		echo json_encode("{'result': 'excelente'}");

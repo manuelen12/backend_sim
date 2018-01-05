@@ -6,28 +6,28 @@
 		exit();
 		}		
 
-	if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+	if (isset($_GET['IdProcAsis'])){
+		$IdProcAsis = $_GET['IdProcAsis'];
+		if (!$IdProcAsis){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "IdProcAsis es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "IdProcAsis es Requerido";
 		return;
 	}
 
 	$json=array();
 
-	if(isset($_GET["idLogin"])){
+	if(isset($_GET["IdProcAsis"])){
 		
-		$idLogin=$_GET['idLogin'];
+		$IdProcAsis=$_GET['IdProcAsis'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="DELETE FROM login WHERE idLogin='{$idLogin}'";
+		$sql="DELETE FROM procasis WHERE IdProcAsis='{$IdProcAsis}'";
 		$result=$mysqli->query($sql);
 		echo json_encode("{'result': 'excelente'}");
 		}

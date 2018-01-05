@@ -44,7 +44,7 @@ class TokenLogin {
              }
             if (empty($myArray)){
                http_response_code(405);
-                 echo "id no existe";
+                 echo "token id no existe";
                  return;
             }else{
                if ($myArray[0]['rol']!=$rol){
