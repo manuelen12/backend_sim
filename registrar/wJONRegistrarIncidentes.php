@@ -1,106 +1,96 @@
-<?PHP
-include '../conexion.php';
+<?php
+	include '../conexion.php';
 
-$json=array();
 
-	if(isset($_GET["id"]) && isset($_GET["servicio"] ) &&  isset($_GET["TipoReporte"] ) &&  isset($_GET["evento"] )&&  isset($_GET["fecha"] )){
-		
-		$id=$_GET['id'];
-		$servicio=$_GET['servicio'];
-		$TipoReporte=$_GET['TipoReporte'];
-		$evento=$_GET['evento'];
-		$fecha=$_GET['fecha'];
-		
-		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
-
-			if (isset($_POST['id'])){
-			$id = $_POST['id'];
-			if (!$id){
+	if (isset($_GET['IdServicio'])){
+			$IdServicio = $_GET['IdServicio'];
+			if (!$IdServicio){
 				http_response_code(404);
-				echo "id es Requerido";
+				echo "IdServicio es Requerido";
 				return;
 
 			}
 		}else{
 			http_response_code(404);
-			echo "id es Requerido";
+			echo "IdServicio es Requerido";
 			return;
 		}
-			if (isset($_POST['servicio'])){
-			$servicio = $_POST['servicio'];
-			if (!$servicio){
+			if (isset($_GET['IdTipoReporte'])){
+			$IdTipoReporte = $_GET['IdTipoReporte'];
+			if (!$IdTipoReporte){
 				http_response_code(404);
-				echo "servicio es Requerido";
+				echo "IdTipoReporte es Requerido";
 				return;
 
 			}
 		}else{
 			http_response_code(404);
-			echo "servicio es Requerido";
+			echo "IdTipoReporte es Requerido";
 			return;
 		}
-			if (isset($_POST['TipoReporte'])){
-			$TipoReporte = $_POST['TipoReporte'];
-			if (!$TipoReporte){
+			if (isset($_POST['FechaSuc'])){
+			$FechaSuc = $_POST['FechaSuc'];
+			if (!$FechaSuc){
 				http_response_code(404);
-				echo "TipoReporte es Requerido";
+				echo "FechaSuc es Requerido";
 				return;
 
 			}
 		}else{
 			http_response_code(404);
-			echo "TipoReporte es Requerido";
+			echo "FechaSuc es Requerido";
 			return;
 		}
-			if (isset($_POST['evento'])){
-			$evento = $_POST['evento'];
-			if (!$evento){
+			if (isset($_POST['NomPac'])){
+			$NomPac = $_POST['NomPac'];
+			if (!$NomPac){
 				http_response_code(404);
-				echo "evento es Requerido";
+				echo "NomPac es Requerido";
 				return;
 
 			}
 		}else{
 			http_response_code(404);
-			echo "evento es Requerido";
+			echo "NomPac es Requerido";
 			return;
 		}
+			if (isset($_POST['Documento'])){
+			$Documento = $_POST['Documento'];
+			if (!$Documento){
+				http_response_code(404);
+				echo "Documento es Requerido";
+				return;
 
-		//INSERT INTO `detallereport` (`IdDetalleReport`, `id`, `IdServicio`, `IdTipoReporte`, `IdDetTipoRep`, `IdProcAsis`, `NomPac`, `Documento`, `Medicamento`, `Lote`, `Fabricante`, `DescSuceso`, `Dispositivo`, `FechaSuc`) VALUES (NULL, '1', '2', '2', '1', NULL, '', '', '', '', '', '', '', '2017-11-02');
-		$insert="INSERT INTO detallereport(id,IdServicio,IdTipoReporte,IdDetTipoRep,FechaSuc) VALUES ('{$id}','{$servicio}','{$TipoReporte}','{$evento}')";
-		$resultado_insert=mysqli_query($conexion,$insert);
-		
-		if($resultado_insert){
-			//SELECT `IdDetalleReport`, `id`, `IdServicio`, `IdTipoReporte`, `IdDetTipoRep`, `FechaSuc` FROM `detallereport` WHERE IdTipoReporte="2" AND id=id GROUP BY FechaSuc
-			$consulta="SELECT id,IdServicio,IdTipoReporte,IdDetTipoRep,FechaSuc FROM detallereport WHERE  'TipoReporte' = '2'  AND 'id'='id' GROUP BY FechaSuc";
-			$resultado=mysqli_query($conexion,$consulta);
-			
-			if($registro=mysqli_fetch_array($resultado)){
-				$json['detallereport'][]=$registro;
 			}
-			mysqli_close($conexion);
-			echo json_encode($json);
+		}else{
+			http_response_code(404);
+			echo "Documento es Requerido";
+			return;
 		}
-		else{
-			$resulta["id"]=0;
-			$resulta["servicio"]='No Registra';
-			$resulta["TipoReporte"]='No Registra';
-			$resulta["evento"]='No Registra';
-			$resulta["fecha"]='No Registra';
-			$json['detallereport'][]=$resulta;
-			echo json_encode($json);
+			if (isset($_POST['DescSuceso'])){
+			$DescSuceso = $_POST['DescSuceso'];
+			if (!$DescSuceso){
+				http_response_code(404);
+				echo "DescSuceso es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "DescSuceso es Requerido";
+			return;
 		}
-		
+	
+	$insert="INSERT INTO detallereport(IdServicio,IdTipoReporte,FechaSuc,NomPac,Documento,DescSuceso) VALUES ('{$IdServicio}','{$IdTipoReporte}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
+	$resultado_insert=mysqli_query($mysqli,$insert);
+	if($resultado_insert){
+		echo json_encode("{'result': 'excelente'}");
+		return;
+	}else{
+		http_response_code(404);
+		echo "Invalido";
+		return;
 	}
-	else{
-			$resulta["id"]=0;
-			$resulta["servicio"]='WS No retorna';
-			$resulta["TipoReporte"]='WS No retorna';
-			$resulta["evento"]='WS No retorna';
-			$resulta["fecha"]='WS No retorna';
-			$json['detallereport'][]=$resulta;
-			echo json_encode($json);
-		}
+
 
 ?>
-
