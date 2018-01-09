@@ -2,13 +2,13 @@
 	require_once("../login/jwt/TokenLogin.php");
 	include '../conexion.php';
 
-	$otl = new TokenLogin($secret);
+/*	$otl = new TokenLogin($secret);
 	$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
 	if(!$id){
 		return;
-	}
+	}*/
 
-		if (isset($_POST['contrasena'])){
+	if (isset($_POST['contrasena'])){
 		$contrasena = $_POST['contrasena'];
 		if (!$contrasena){
 			http_response_code(404);
