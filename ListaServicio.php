@@ -7,13 +7,26 @@
 		}		
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="SELECT NomServicio FROM servicio";
+		$sql="SELECT NomServicio as Descripcion FROM servicio";
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 
 		}	
 
-		print(json_encode($output)); 
+		$mysqli->query("SET NAMES 'utf8'");
+		$sql="SELECT Descripcion FROM dettiporep WHERE `IdTipoReporte` = '2'";
+		$result=$mysqli->query($sql);
+		while($e=mysqli_fetch_assoc($result)){
+		$output2[]=$e; 
+		}	
+
+		$dict = (object)array(
+			"servicio"=> $output,
+			"eventos"=> $output2
+		);
+
+
+		print(json_encode($dict)); 
 		$mysqli->close();	
 
 		?>		
