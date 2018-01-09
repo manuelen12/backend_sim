@@ -29,6 +29,7 @@
 		$mysqli->query("SET NAMES 'utf8'");
 		//$sql="SELECT count.(IdProcAsis) as pa, FROM detallereport WHERE IdProcAsis='{$IdProcAsis}'";
 		$sql="SELECT IdProcAsis*100/(SELECT sum(IdProcAsis) FROM detallereport) FROM detallereport";
+		//leve,medio,grave
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 

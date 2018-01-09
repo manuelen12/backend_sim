@@ -49,7 +49,7 @@
 		$output[]=$s; 
 		}	
 			if($result){
-			$consulta="SELECT AVG(IdDetalleReport) FROM detallereport WHERE MonthName(FechaSuc) = '{$MonthName}'";
+			$consulta="SELECT AVG(IdDetalleReport) FROM detallereport WHERE Year(FechaSuc) = '{$Year}' AND MonthName(FechaSuc) = '{$MonthName}'";
 			$resultado=$mysqli->query($consulta);
 		}
 			while($c=mysqli_fetch_assoc($resultado)){
