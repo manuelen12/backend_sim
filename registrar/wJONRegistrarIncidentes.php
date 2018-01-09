@@ -1,23 +1,16 @@
 <?php
 	include '../conexion.php';
 
-			
-		
-			if (isset($_GET['idLogin'])){
-			$idLogin = $_GET['idLogin'];
-			if (!$idLogin){
-				http_response_code(404);
-				echo "idLogin es Requerido";
-				return;
+		require_once("../login/jwt/TokenLogin.php");
 
-			}
-		}else{
-			http_response_code(404);
-			echo "idLogin es Requerido";
+		$otl = new TokenLogin($secret);
+		$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
+		if(!$id){
 			return;
 		}
+	
 			
-			if (isset($_GET['IdServicio'])){
+		if (isset($_GET['IdServicio'])){
 			$IdServicio = $_GET['IdServicio'];
 			if (!$IdServicio){
 				http_response_code(404);
@@ -96,7 +89,7 @@
 			return;
 		}
 	
-	$insert="INSERT INTO detallereport(idLogin, IdServicio, IdTipoReporte, FechaSuc, NomPac, Documento, DescSuceso) VALUES ('{$_GET['idLogin']}', '{$IdServicio}','{$IdTipoReporte}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
+	$insert="INSERT INTO detallereport(idLogin, IdServicio, IdTipoReporte, FechaSuc, NomPac, Documento, DescSuceso) VALUES ('{$id}', '{$IdServicio}','{$IdTipoReporte}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
 	$resultado_insert=mysqli_query($mysqli,$insert);
 	if($resultado_insert){
 		echo json_encode("{'result': 'excelente'}");
