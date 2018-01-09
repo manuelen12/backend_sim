@@ -1,6 +1,12 @@
 <?php
 	include '../conexion.php';
+	require_once("../login/jwt/TokenLogin.php");
 
+	$otl = new TokenLogin($secret);
+	$id = $otl->valid_session($mysqli, "ADMINISTRADOR", $_GET['token']);
+	if(!$id){
+		return;
+	}
 			
 		
 			if (isset($_GET['idLogin'])){
