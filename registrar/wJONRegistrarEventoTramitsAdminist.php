@@ -3,14 +3,29 @@ include '../conexion.php';
 
 $json=array();
 
-	if(isset($_GET["IdServicio"]) && isset($_GET["IdDetTipoRep"])){
+	if (isset($_GET["idLogin"]) && isset($_GET["IdServicio"]) && isset($_GET["IdDetTipoRep"])){
 		
+		$idLogin=$_GET['idLogin'];
 		$IdServicio=$_GET['IdServicio'];
 		$IdDetTipoRep=$_GET['IdDetTipoRep'];
 		
 		
 		
 		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
+		
+			if (isset($_GET['idLogin'])){
+			$idLogin = $_GET['idLogin'];
+			if (!$idLogin){
+				http_response_code(404);
+				echo "idLogin es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "idLogin es Requerido";
+			return;
+		}
 		
 			if (isset($_GET['IdServicio'])){
 			$IdServicio = $_GET['IdServicio'];
@@ -94,7 +109,7 @@ $json=array();
 			echo "DescSuceso es Requerido";
 			return;
 		}
-		$insert="INSERT INTO detallereport(IdServicio, IdDetTipoRep, FechaSuc, NomPac, Documento, DescSuceso) VALUES ('{$_GET['IdServicio']}','{$_GET['IdDetTipoRep']}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
+		$insert="INSERT INTO detallereport(idLogin, IdServicio, IdDetTipoRep, FechaSuc, NomPac, Documento, DescSuceso) VALUES ('{$_GET['idLogin']}', '{$_GET['IdServicio']}','{$_GET['IdDetTipoRep']}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
 		$resultado_insert=mysqli_query($mysqli,$insert);
 		if($resultado_insert){
 			echo json_encode("{'result': 'excelente'}");
