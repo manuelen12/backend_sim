@@ -6,28 +6,28 @@
 		exit();
 		}		
 
-	if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+	if (isset($_GET['idmedicamento'])){
+		$idmedicamento = $_GET['idmedicamento'];
+		if (!$idmedicamento){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "idmedicamento es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "idmedicamento es Requerido";
 		return;
 	}
 
 	$json=array();
 
-	if(isset($_GET["idLogin"])){
+	if(isset($_GET["idmedicamento"])){
 		
-		$idLogin=$_GET['idLogin'];
+		$idmedicamento=$_GET['idmedicamento'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="DELETE FROM login WHERE idLogin='{$idLogin}'";
+		$sql="DELETE FROM medicamentos WHERE idmedicamento='{$idmedicamento}'";
 		$result=$mysqli->query($sql);
 		echo json_encode("{'result': 'excelente'}");
 		}

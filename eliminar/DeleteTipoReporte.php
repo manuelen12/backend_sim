@@ -6,28 +6,28 @@
 		exit();
 		}		
 
-	if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+	if (isset($_GET['IdTipoReporte'])){
+		$IdTipoReporte = $_GET['IdTipoReporte'];
+		if (!$IdTipoReporte){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "IdTipoReporte es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "IdTipoReporte es Requerido";
 		return;
 	}
 
 	$json=array();
 
-	if(isset($_GET["idLogin"])){
+	if(isset($_GET["IdTipoReporte"])){
 		
-		$idLogin=$_GET['idLogin'];
+		$IdTipoReporte=$_GET['IdTipoReporte'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="DELETE FROM login WHERE idLogin='{$idLogin}'";
+		$sql="DELETE FROM tiporeporte WHERE IdTipoReporte='{$IdTipoReporte}'";
 		$result=$mysqli->query($sql);
 		echo json_encode("{'result': 'excelente'}");
 		}

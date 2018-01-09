@@ -6,29 +6,30 @@
 		exit();
 		}
 		
-		if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+		if (isset($_GET['IdProcAsis'])){
+		$IdProcAsis = $_GET['IdProcAsis'];
+		if (!$IdProcAsis){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "IdProcAsis es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "IdProcAsis es Requerido";
 		return;
 	}
 	
 	$json=array();
 
-	if(isset($_GET["idLogin"])){
+	if(isset($_GET["IdProcAsis"])){
 		
-		$idLogin=$_GET['idLogin'];
+		$IdProcAsis=$_GET['IdProcAsis'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="SELECT name, rol FROM login WHERE idLogin='{$idLogin}'";
-		//$sql="SELECT * FROM login WHERE idLogin='2'";
+		//$sql="SELECT count.(IdProcAsis) as pa, FROM detallereport WHERE IdProcAsis='{$IdProcAsis}'";
+		$sql="SELECT IdProcAsis*100/(SELECT sum(IdProcAsis) FROM detallereport) FROM detallereport";
+		//leve,medio,grave
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 

@@ -1,7 +1,16 @@
-<?php
-	include '../conexion.php';
+<?PHP
+include '../conexion.php';
+$json=array();
 
-			
+	if(isset($_GET["IdServicio"]) && isset($_GET["IdDetTipoRep"]) && isset($_GET["idLogin"]))
+		
+		$IdServicio=$_GET['IdServicio'];
+		$IdDetTipoRep=$_GET['IdDetTipoRep'];
+		$idLogin=$_GET['idLogin'];
+		
+		
+		
+		$conexion=mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
 		
 			if (isset($_GET['idLogin'])){
 			$idLogin = $_GET['idLogin'];
@@ -16,7 +25,7 @@
 			echo "idLogin es Requerido";
 			return;
 		}
-			
+
 			if (isset($_GET['IdServicio'])){
 			$IdServicio = $_GET['IdServicio'];
 			if (!$IdServicio){
@@ -30,19 +39,21 @@
 			echo "IdServicio es Requerido";
 			return;
 		}
-			if (isset($_GET['IdTipoReporte'])){
-			$IdTipoReporte = $_GET['IdTipoReporte'];
-			if (!$IdTipoReporte){
+
+			if (isset($_GET['IdDetTipoRep'])){
+			$IdDetTipoRep = $_GET['IdDetTipoRep'];
+			if (!$IdDetTipoRep){
 				http_response_code(404);
-				echo "IdTipoReporte es Requerido";
+				echo "IdDetTipoRep es Requerido";
 				return;
 
 			}
 		}else{
 			http_response_code(404);
-			echo "IdTipoReporte es Requerido";
+			echo "IdDetTipoRep es Requerido";
 			return;
 		}
+
 			if (isset($_POST['FechaSuc'])){
 			$FechaSuc = $_POST['FechaSuc'];
 			if (!$FechaSuc){
@@ -56,6 +67,7 @@
 			echo "FechaSuc es Requerido";
 			return;
 		}
+
 			if (isset($_POST['NomPac'])){
 			$NomPac = $_POST['NomPac'];
 			if (!$NomPac){
@@ -68,7 +80,8 @@
 			http_response_code(404);
 			echo "NomPac es Requerido";
 			return;
-		}
+		}	
+
 			if (isset($_POST['Documento'])){
 			$Documento = $_POST['Documento'];
 			if (!$Documento){
@@ -80,6 +93,19 @@
 		}else{
 			http_response_code(404);
 			echo "Documento es Requerido";
+			return;
+		}	
+			if (isset($_POST['Dispositivo'])){
+			$Dispositivo = $_POST['Dispositivo'];
+			if (!$Dispositivo){
+				http_response_code(404);
+				echo "Dispositivo es Requerido";
+				return;
+
+			}
+		}else{
+			http_response_code(404);
+			echo "Dispositivo es Requerido";
 			return;
 		}
 			if (isset($_POST['DescSuceso'])){
@@ -95,18 +121,19 @@
 			echo "DescSuceso es Requerido";
 			return;
 		}
-	
-	$insert="INSERT INTO detallereport(idLogin, IdServicio, IdTipoReporte, FechaSuc, NomPac, Documento, DescSuceso) VALUES ('{$_GET['idLogin']}', '{$IdServicio}','{$IdTipoReporte}','{$FechaSuc}','{$NomPac}','{$Documento}','{$DescSuceso}')";
-	$resultado_insert=mysqli_query($mysqli,$insert);
-	if($resultado_insert){
-		echo json_encode("{'result': 'excelente'}");
-		return;
-	}else{
-		http_response_code(404);
-		echo "Invalido";
-		return;
-	}
-
+		$insert="INSERT INTO detallereport(idLogin, IdServicio, IdDetTipoRep, FechaSuc, NomPac, Documento, Dispositivo, DescSuceso) VALUES ('{$_GET['idLogin']}', '{$_GET['IdServicio']}','{$_GET['IdDetTipoRep']}','{$FechaSuc}','{$NomPac}','{$Documento}','{$Dispositivo}','{$DescSuceso}')";
+		$resultado_insert=mysqli_query($mysqli,$insert);
+		if($resultado_insert){
+			echo json_encode("{'result': 'excelente'}");
+			return;
+		}else{
+			http_response_code(404);
+			echo "Usuario Invalido";
+			return;
+		}
+		
+		
+	//}
 
 ?>
 

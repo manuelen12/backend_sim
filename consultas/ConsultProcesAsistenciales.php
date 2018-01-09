@@ -6,35 +6,29 @@
 		exit();
 		}
 		
-		if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+		if (isset($_GET['IdDetTipoRep'])){
+		$IdDetTipoRep = $_GET['IdDetTipoRep'];
+		if (!$IdDetTipoRep){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "IdDetTipoRep es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "IdDetTipoRep es Requerido";
 		return;
-	}
-	
-	$json=array();
-
-	if(isset($_GET["idLogin"])){
-		
-		$idLogin=$_GET['idLogin'];
+	}		
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="SELECT name, rol FROM login WHERE idLogin='{$idLogin}'";
-		//$sql="SELECT * FROM login WHERE idLogin='2'";
+		$sql="SELECT FechaSuc,NomPac,Documento,DescSuceso FROM detallereport WHERE IdDetTipoRep='PROCESOS ASISTENCIALES'";
+		//$sql="SELECT * FROM procasis";
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 
 		}	
 
-	}
 		print(json_encode($output)); 
 		$mysqli->close();	
+
 		?>		

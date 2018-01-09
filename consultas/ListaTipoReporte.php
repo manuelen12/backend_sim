@@ -6,29 +6,28 @@
 		exit();
 		}
 		
-		if (isset($_GET['idLogin'])){
-		$idLogin = $_GET['idLogin'];
-		if (!$idLogin){
+		if (isset($_GET['IdTipoReporte'])){
+		$IdTipoReporte = $_GET['IdTipoReporte'];
+		if (!$IdTipoReporte){
 			http_response_code(404);
-			echo "idLogin es Requerido";
+			echo "IdTipoReporte es Requerido";
 			return;
 
 		}
 	}else{
 		http_response_code(404);
-		echo "idLogin es Requerido";
+		echo "IdTipoReporte es Requerido";
 		return;
 	}
 	
 	$json=array();
 
-	if(isset($_GET["idLogin"])){
+	if(isset($_GET["IdTipoReporte"])){
 		
-		$idLogin=$_GET['idLogin'];
+		$IdTipoReporte=$_GET['IdTipoReporte'];
 
 		$mysqli->query("SET NAMES 'utf8'");
-		$sql="SELECT name, rol FROM login WHERE idLogin='{$idLogin}'";
-		//$sql="SELECT * FROM login WHERE idLogin='2'";
+		$sql="SELECT IdTipoReporte, NomReport FROM tiporeporte WHERE IdTipoReporte='{$IdTipoReporte}'";
 		$result=$mysqli->query($sql);
 		while($e=mysqli_fetch_assoc($result)){
 		$output[]=$e; 
