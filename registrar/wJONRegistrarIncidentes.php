@@ -1,6 +1,5 @@
 <?php
 	include '../conexion.php';
-
 		/*require_once("../login/jwt/TokenLogin.php");*/
 
 /*		$otl = new TokenLogin($secret);
